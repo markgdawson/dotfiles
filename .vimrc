@@ -15,8 +15,6 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 Plugin 'tmhedberg/matchit'
-"Plugin 'ervandew/screen'
-Plugin 'epeli/slimux'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'chrisbra/vim-diff-enhanced'
 Plugin 'lrvick/Conque-Shell'
@@ -29,6 +27,9 @@ Plugin 'mileszs/ack.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'sjl/gundo.vim'
 Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'ervandew/screen'
+" Plugin 'epeli/slimux' - can't get this to work at all
+" Plugin 'jpalardy/vim-slime' - only able to send paragraphs - but it works
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
