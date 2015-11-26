@@ -51,7 +51,7 @@ ENABLE_CORRECTION="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git gitfast git-extras)
 if [[ $OSTYPE == darwin14.0 ]] then
     plugins=(plugins osx)
 fi
@@ -111,3 +111,6 @@ export KEYTIMEOUT=10
 export GREP_OPTIONS='--color=auto'
 
 alias rl='readlink -f'
+alias gs='git status'
+alias gap='git add -p'
+
