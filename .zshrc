@@ -114,3 +114,6 @@ alias rl='readlink -f'
 alias gs='git status'
 alias gap='git add -p'
 
+
+## Intel Library Paths
+alias gdb-intel='LD_LIBRARY_PATH=/opt/intel/debugger_2016/libipt/intel64/lib PYTHONPATH=/opt/intel/debugger_2016/python/intel64/lib PYTHONHOME=/opt/intel/debugger_2016/python/intel64/ /opt/intel/compilers_and_libraries_2016.0.109/linux/bin/intel64/gdb-ia'
