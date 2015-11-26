@@ -27,9 +27,7 @@ Plugin 'mileszs/ack.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'sjl/gundo.vim'
 Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'ervandew/screen'
-" Plugin 'epeli/slimux' - can't get this to work at all
-" Plugin 'jpalardy/vim-slime' - only able to send paragraphs - but it works
+Plugin 'epeli/slimux'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -250,8 +248,8 @@ augroup fortranCmds
 augroup end
 augroup matlabCmds
     autocmd!
-    autocmd BufNewFile,BufRead *.m nnoremap <c-e> V:ScreenSend<cr>
-    autocmd BufNewFile,BufRead *.m inoremap <c-e> <esc>mzV:ScreenSend<cr>`za
+    autocmd BufNewFile,BufRead *.m nnoremap <c-e> :SlimuxREPLSendLine<cr>
+    autocmd BufNewFile,BufRead *.m inoremap <c-e> <esc>mz:SlimuxREPLSendLine<cr>`za
 augroup end
 
 " Window Management (new windows open to the right and below)"
@@ -264,3 +262,8 @@ nnoremap <leader>et :vsplit ~/.tmux.conf<cr>
 " Red Status Bar
 hi StatusLine   ctermfg=15  guifg=#ffffff ctermbg=1 guibg=#4e4e4e cterm=bold gui=bold
 nnoremap <c-w>h <c-w>s
+
+" CTags
+nmap <leader>tb :TagbarToggle<CR>
+set tags=./tags;
+let g:easytags_dynamic_files = 1
