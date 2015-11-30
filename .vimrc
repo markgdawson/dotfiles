@@ -14,6 +14,7 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
+Plugin 'tpope/vim-flagship'
 Plugin 'tmhedberg/matchit'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'chrisbra/vim-diff-enhanced'
