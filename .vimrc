@@ -201,6 +201,11 @@ let maplocalleader = " "
 let mapleader = " "
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
+augroup sourceVIM
+    autocmd!
+    autocmd BufWritePre $MYVIMRC execute 'normal! :source '.$MYVIMRC.'\n'
+augroup end
+
 inoremap jk <esc>
 inoremap <esc> <nop>
 
