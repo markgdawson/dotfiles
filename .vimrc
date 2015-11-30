@@ -248,12 +248,7 @@ inoremap <c-b> <esc><c-w><c-w>
 "map <leader>cf ?subroutine<cr>w"myw :Ack ".@a."\n"
 augroup fortranCmds
     autocmd!
-    autocmd Filetype fortran  noremap <buffer> <leader>m :make
-augroup end
-augroup matlabCmds
-    autocmd!
-    autocmd BufNewFile,BufRead *.m nnoremap <c-e> :SlimuxREPLSendLine<cr>
-    autocmd BufNewFile,BufRead *.m inoremap <c-e> <esc>mz:SlimuxREPLSendLine<cr>`za
+    autocmd Filetype fortran  noremap <buffer> <leader>m :make 2D<cr>
 augroup end
 
 " Window Management (new windows open to the right and below)"
@@ -329,3 +324,11 @@ noremap H :tabprevious<cr>
 " ignore object files and .git repos
 set wildignore+=*.o
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+
+" Matlab editing
+augroup matlabCmds
+    autocmd!
+    autocmd BufNewFile,BufRead *.m nnoremap <c-e> :SlimuxREPLSendLine<cr>
+    autocmd BufNewFile,BufRead *.m inoremap <c-e> <esc>mz:SlimuxREPLSendLine<cr>`za
+augroup end
+
