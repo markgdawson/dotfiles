@@ -18,7 +18,6 @@ Plugin 'tpope/vim-flagship'
 Plugin 'tmhedberg/matchit'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'chrisbra/vim-diff-enhanced'
-Plugin 'lrvick/Conque-Shell'
 Plugin 'sgeb/vim-matlab'
 Plugin 'tpope/vim-fugitive'
 Plugin 'kien/ctrlp.vim'
@@ -178,9 +177,6 @@ augroup END
 " Font
 set guifont=DejaVu\ Sans\ Mono\ 14
 
-" ConqueGdb
-" autocmd VimEnter * ConqueGdbExe /Volumes/HardDrive/Users/mark/bin/gdb-intel
-
 filetype indent on
 let g:tex_flavor='latex'
 
@@ -239,11 +235,6 @@ execute "set <F11>=\e[23;*~"
 execute "set <F12>=\e[24;*~"
 
 set nrformats=
-
-" MATLAB
-noremap <leader>ms :ConqueTermSplit matlab -nodesktop -nosplash<cr><esc>:res -5<cr>
-nmap <leader>r :let @" = "run('".expand("%")."')\n"<cr><c-w><c-w>p<cr>
-inoremap <c-b> <esc><c-w><c-w>
 
 " Working with Fortran
 "map <leader>cf ?subroutine<cr>w"myw :Ack ".@a."\n"
