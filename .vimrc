@@ -256,9 +256,6 @@ augroup end
 set splitbelow
 set splitright
 
-" Easily Edit Tmux Config
-nnoremap <leader>et :vsplit ~/.tmux.conf<cr>
-
 " Red Status Bar
 hi StatusLine   ctermfg=15  guifg=#ffffff ctermbg=1 guibg=#4e4e4e cterm=bold gui=bold
 nnoremap <c-w>h <c-w>s
@@ -333,3 +330,14 @@ augroup matlabCmds
     autocmd BufNewFile,BufRead *.m inoremap <c-e> <esc>mz:SlimuxREPLSendLine<cr>`za
 augroup end
 
+" Easily Edit Tmux Config
+nnoremap <leader>et :vsplit ~/.tmux.conf<cr>
+
+" Remap Tmux configs
+let g:tmux_navigator_no_mappings = 1
+
+nnoremap <silent> <A-h> :TmuxNavigateLeft<cr>
+nnoremap <silent> <A-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <A-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <A-l> :TmuxNavigateRight<cr>
+nnoremap <silent> <A-p> :TmuxNavigatePrevious<cr>
