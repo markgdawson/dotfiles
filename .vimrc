@@ -258,7 +258,6 @@ set splitright
 
 " Red Status Bar
 hi StatusLine   ctermfg=15  guifg=#ffffff ctermbg=1 guibg=#4e4e4e cterm=bold gui=bold
-nnoremap <c-w>h <c-w>s
 
 " CTags
 nmap <leader>tb :TagbarToggle<CR>
