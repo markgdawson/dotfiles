@@ -180,8 +180,6 @@ set guifont=DejaVu\ Sans\ Mono\ 14
 " ConqueGdb
 " autocmd VimEnter * ConqueGdbExe /Volumes/HardDrive/Users/mark/bin/gdb-intel
 
-noremap bp :exe "!echo ".expand('%:t').":".line(".")." \| pbcopy"<CR><CR>
-
 filetype indent on
 let g:tex_flavor='latex'
 
@@ -276,6 +274,52 @@ let g:easytags_dynamic_files = 1
 
 " Ack find
 map <c-f> :Ack<space>
+
+" Debugging with gdb
+function! GdbSlimuxBreakPoint()
+    let a="SlimuxSendKeys "."'b ".expand('%:t').":".line(".")."\\n'"
+    execute a
+endfunction
+
+let g:GdbSLimuxDebug_statusline_old = &statusline
+
+function! ToggleGDBDebugMode()
+    if !exists('b:GdbSLimuxDebug_modeOn')
+        let b:GdbSLimuxDebug_modeOn=0
+    endif
+
+    echom b:GdbSLimuxDebug_modeOn
+        
+    if(b:GdbSLimuxDebug_modeOn)
+        " nunmap <buffer><b>
+        " nunmap <buffer><r>
+        " nunmap <buffer><n>
+        " nunmap <buffer><c>
+        " nunmap <buffer><s>
+        " nunmap <buffer><d>
+        nmap <buffer><t>
+        silent echom 'GDB Debug Mode Off'
+        let b:GdbSLimuxDebug_modeOn=0
+        let &statusline = g:GdbSLimuxDebug_statusline_old
+    else
+        noremap <buffer><t> :echom 'Mode On'
+        " noremap <buffer><b> :call GdbSlimuxBreakPoint()<cr>
+        " noremap <buffer><r> :SlimuxSendKeys 'run\n'<cr>
+        " noremap <buffer><n> :SlimuxSendKeys 'next\n'<cr>
+        " noremap <buffer><c> :SlimuxSendKeys 'cont\n'<cr>
+        " noremap <buffer><s> :SlimuxREPLSendLine<cr>
+        " " noremap <buffer><d> :SlimuxSendKeys 'delete\n'<cr>:SlimuxSendKeys 'y\n'<cr>
+        " noremap <buffer><y> :SlimuxSendKeys 'y\n'<cr>
+        silent echom 'GDB Debug Mode On'
+        let b:GdbSLimuxDebug_modeOn=1
+        let g:GdbSLimuxDebug_statusline_old=&statusline
+        set statusline=%f
+        set statusline+=\ [GDB\ MODE]
+    endif
+
+endfunction
+
+map <leader>gm call ToggleGDBDebugMode()
 
 " yank function name
 noremap <leader>yfn <esc>ma?subroutine<cr>wyiw`a
