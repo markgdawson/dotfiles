@@ -268,3 +268,15 @@ nnoremap <c-w>h <c-w>s
 nmap <leader>tb :TagbarToggle<CR>
 set tags=./tags;
 let g:easytags_dynamic_files = 1
+
+" Ack find
+map <c-f> :Ack<space>
+
+" yank function name
+noremap <leader>yfn <esc>ma?subroutine<cr>wyiw`a
+noremap L :tabnext<cr>
+noremap H :tabprevious<cr>
+
+" ignore object files and .git repos
+set wildignore+=*.o
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
