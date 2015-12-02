@@ -29,6 +29,7 @@ Plugin 'sjl/gundo.vim'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'epeli/slimux'
 Plugin 'majutsushi/tagbar'
+Plugin 'vim-scripts/fortran_codecomplete.vim'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
