@@ -105,13 +105,13 @@ noremap <Left> <NOP>
 noremap <Right> <NOP>
 
 if executable('ag')
-  let g:ackprg = 'ag --nogroup --nocolor --column'
+    let g:ackprg = 'ag --nogroup --nocolor --column'
 endif
 
 " autoread and autowrite
 augroup save
-  au!
-  au FocusLost * wall
+    au!
+    au FocusLost * wall
 augroup END
 set nohidden
 set nobackup
@@ -170,8 +170,8 @@ let fortran_do_enddo=1
 " Set folding off by default
 " Keep all folds open when a file is opened
 augroup OpenAllFoldsOnFileOpen
-autocmd!
-autocmd BufRead * normal zR
+    autocmd!
+    autocmd BufRead * normal zR
 augroup END
 
 " Font
@@ -195,11 +195,10 @@ noremap _ ddkP
 let maplocalleader = " "
 let mapleader = " "
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
-nnoremap <leader>sv :source $MYVIMRC<cr>
 augroup sourceVIM
     autocmd!
-    autocmd BufWritePre $MYVIMRC execute 'normal! :source '.$MYVIMRC.'\n'
-augroup end
+    autocmd! bufwritepost .vimrc source %
+augroup END
 
 inoremap jk <esc>
 inoremap <esc> <nop>
@@ -241,7 +240,7 @@ set nrformats=
 augroup fortranCmds
     autocmd!
     autocmd Filetype fortran  noremap <buffer> <leader>m :make 2D<cr>
-augroup end
+augroup END
 
 " Window Management (new windows open to the right and below)"
 set splitbelow
@@ -272,7 +271,7 @@ function! ToggleGDBDebugMode()
     endif
 
     echom b:GdbSLimuxDebug_modeOn
-        
+
     if(b:GdbSLimuxDebug_modeOn)
         " nunmap <buffer><b>
         " nunmap <buffer><r>
@@ -318,7 +317,7 @@ augroup matlabCmds
     autocmd!
     autocmd BufNewFile,BufRead *.m nnoremap <c-e> :SlimuxREPLSendLine<cr>
     autocmd BufNewFile,BufRead *.m inoremap <c-e> <esc>mz:SlimuxREPLSendLine<cr>`za
-augroup end
+augroup END
 
 " Easily Edit Tmux Config
 nnoremap <leader>et :vsplit ~/.tmux.conf<cr>
