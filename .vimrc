@@ -534,3 +534,6 @@ function! FRTOpenFileInVertSplit()
 endfunction
 
 nnoremap <buffer> <localleader>d :call FRTErrorList()<cr>
+
+" Shortcuts specific to Maxwell-nefem
+map <localleader>dgmt :vsplit ./source/DGMaxwellTypes.f90<cr>
