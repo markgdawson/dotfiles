@@ -33,6 +33,18 @@ Plugin 'majutsushi/tagbar'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
+" Easy plugin add
+function! PluginAddNew(pluginURI)
+    vsplit $MYVIMRC
+    execute "normal! gg?^call vundle#end\<cr>kk"
+    execute "normal! oPlugin '".a:pluginURI."'\<esc>"
+    write
+    quit
+    PluginInstall
+endfunction
+
+command! -nargs=1 PluginAddNew call PluginAddNew(<q-args>)
+
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
 "
