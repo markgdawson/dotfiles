@@ -114,3 +114,7 @@ alias gs='git status'
 alias gap='git add -p'
 #Macports, Ruby and miscellaneous scripts
 export PATH=/opt/local/bin:/usr/local/bin:/opt/local/sbin:/usr/local/sbin:~/bin:$PATH
+
+if [[ $OSTYPE == 'darwin14'* ]] then
+    export PATH=/usr/local/texlive/2015/bin/universal-darwin:$PATH
+fi
