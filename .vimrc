@@ -93,6 +93,9 @@ nnoremap <leader><space> :noh<cr>
 nnoremap <tab> %
 vnoremap <tab> %
 
+" Scrolling
+set scrolloff=999
+
 " Line Wrapping
 set wrap
 set textwidth=79
@@ -103,6 +106,14 @@ set formatoptions=qrn1
 "nnoremap j gj
 "nnoremap k gk
 
+" Plugin
+"hi CursorLine   cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+hi CursorLine   cterm=NONE ctermbg=white guibg=white
+augroup CursorLine
+au!
+au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+  au WinLeave * setlocal nocursorline
+augroup END
 
 "set relativenumber
 set number
@@ -131,6 +142,9 @@ if executable('ag')
     let g:ackprg = 'ag --nogroup --nocolor --column'
 endif
 
+" Git diff
+set diffopt+=vertical
+
 " autoread and autowrite
 augroup save
     au!
@@ -147,7 +161,7 @@ set autowriteall
 " Restore Cursor to previous editing position
 function! ResCur()
     if line("'\"") <= line("$")
-        normal! g`"
+        normal! g`"zz
         return 1
     endif
 endfunction
@@ -218,10 +232,11 @@ noremap _ ddkP
 let maplocalleader = " "
 let mapleader = " "
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
 augroup sourceVIM
     autocmd!
     autocmd! bufwritepost .vimrc source %
-augroup END
+augroup call allocInt1D(new, stat=allocateStatus,,,'new, stat=allocateStatus','subroutine uniqueInteger')
 
 inoremap jk <esc>
 inoremap <esc> <nop>
@@ -274,7 +289,7 @@ hi StatusLine   ctermfg=15  guifg=#ffffff ctermbg=1 guibg=#4e4e4e cterm=bold gui
 
 " CTags
 nmap <leader>tb :TagbarToggle<CR>
-set tags=./tags;
+set tags=.git/tags;/
 let g:easytags_dynamic_files = 1
 
 " Ack find
@@ -288,40 +303,44 @@ endfunction
 
 let g:GdbSLimuxDebug_statusline_old = &statusline
 
+let g:GdbSLimuxDebug_modeOn=0
+
 function! ToggleGDBDebugMode()
-    if !exists('b:GdbSLimuxDebug_modeOn')
-        let b:GdbSLimuxDebug_modeOn=0
-    endif
 
-    echom b:GdbSLimuxDebug_modeOn
-
-    if(b:GdbSLimuxDebug_modeOn)
-        " nunmap <buffer><b>
-        " nunmap <buffer><r>
-        " nunmap <buffer><n>
-        " nunmap <buffer><c>
-        " nunmap <buffer><s>
-        " nunmap <buffer><d>
-        nmap <buffer><t>
-        silent echom 'GDB Debug Mode Off'
-        let b:GdbSLimuxDebug_modeOn=0
+    if(g:GdbSLimuxDebug_modeOn)
+        " Switch debug mode off
+        unmap bp
+        unmap r
+        unmap n
+        unmap c
+        unmap s
+        unmap d
+        unmap y
+        unmap p
+        echom 'GDB Debug Mode Off'
+        let g:GdbSLimuxDebug_modeOn=0
         let &statusline = g:GdbSLimuxDebug_statusline_old
     else
-        noremap <buffer><t> :echom 'Mode On'
-        " noremap <buffer><b> :call GdbSlimuxBreakPoint()<cr>
-        " noremap <buffer><r> :SlimuxSendKeys 'run\n'<cr>
-        " noremap <buffer><n> :SlimuxSendKeys 'next\n'<cr>
-        " noremap <buffer><c> :SlimuxSendKeys 'cont\n'<cr>
-        " noremap <buffer><s> :SlimuxREPLSendLine<cr>
-        " " noremap <buffer><d> :SlimuxSendKeys 'delete\n'<cr>:SlimuxSendKeys 'y\n'<cr>
-        " noremap <buffer><y> :SlimuxSendKeys 'y\n'<cr>
-        silent echom 'GDB Debug Mode On'
-        let b:GdbSLimuxDebug_modeOn=1
+        noremap bp :call GdbSlimuxBreakPoint()<cr>
+        noremap r :SlimuxSendKeys 'run\n'<cr>
+        noremap n :SlimuxSendKeys 'next\n'<cr>
+        noremap c :SlimuxSendKeys 'cont\n'<cr>
+        noremap s :SlimuxREPLSendLine<cr>
+        noremap d :SlimuxSendKeys 'delete\n'<cr>:SlimuxSendKeys 'y\n'<cr>
+        noremap y :SlimuxSendKeys 'y\n'<cr>
+        noremap p :call GdbSlimuxPutVariable()<cr>
+        echom 'GDB Debug Mode On'
+        let g:GdbSLimuxDebug_modeOn=1
         let g:GdbSLimuxDebug_statusline_old=&statusline
         set statusline=%f
         set statusline+=\ [GDB\ MODE]
     endif
 
+endfunction
+
+function! GdbSlimuxPutVariable()
+    normal! viw"ky
+    execute "normal! :SlimuxSendKeys 'p ".@k."\\n'\<cr>"
 endfunction
 
 map <leader>gm call ToggleGDBDebugMode()
@@ -333,7 +352,7 @@ noremap H :tabprevious<cr>
 
 " ignore object files and .git repos
 set wildignore+=*.o
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn|build|bin)$'
 
 " Matlab editing
 augroup matlabCmds
@@ -345,15 +364,6 @@ augroup END
 " Easily Edit Tmux Config
 nnoremap <leader>et :vsplit ~/.tmux.conf<cr>
 
-" Remap Tmux configs
-let g:tmux_navigator_no_mappings = 1
-
-nnoremap <silent> <A-h> :TmuxNavigateLeft<cr>
-nnoremap <silent> <A-j> :TmuxNavigateDown<cr>
-nnoremap <silent> <A-k> :TmuxNavigateUp<cr>
-nnoremap <silent> <A-l> :TmuxNavigateRight<cr>
-nnoremap <silent> <A-p> :TmuxNavigatePrevious<cr>
-
 " Ack find all calls to this function
 function! AckFunctionCall()
     normal! 0wvt("ky
@@ -363,8 +373,7 @@ nnoremap <leader>fc :call AckFunctionCall()<cr>
 
 "" My Fortran Runtime Plugin
 
-let g:FRT_DefaultBinPath = '~/Source/maxwell-nefem/bin/debug/maxwell2D'
-let g:FRT_SourceDir='~/Source/maxwell-nefem/source'
+let g:FRT_SourceDir='~/Source/maxwell-nefem/'
 let g:FRT_OutFilePattern='outFileLog*'
 let g:FRT_defaultOutWinSize = 10
 let g:FRT_dataInpReference = '~/Source/maxwell-nefem/source/DGMaxwellTypes.f90'
@@ -377,9 +386,9 @@ function! FRTErrorList(...)
 
     let l:runpath = a:1
     if(nOfArgs>1)
-        let l:sourceDir = a:2
+        let g:sourceDir = a:2
     else
-        let l:sourceDir = g:FRT_SourceDir
+        let g:sourceDir = g:FRT_SourceDir
     endif
 
     " choose nsd based on run dir
@@ -387,15 +396,7 @@ function! FRTErrorList(...)
     let l:sysCmd = 'find '.l:runpath.' -name data.inp | xargs sed -n ''/inputData%nsd/s/.*=\s*//p'''
     let l:nsd = system(l:sysCmd)
     let l:nsd = split(l:nsd,'\v\n')[0]
-    let l:FRT_BinPath = l:sourceDir.'/bin/debug/maxwell'.l:nsd.'D'
-
-    " Use bin file defined by source dir, based on nsd in runpath/data.inp
-    let l:tryBinPath = l:runpath.'/maxwell-bin'
-    if(empty(glob(l:tryBinPath)))
-        let l:FRT_BinPath = g:FRT_DefaultBinPath
-    else
-        let l:FRT_BinPath = l:tryBinPath
-    endif
+    let l:FRT_BinPath = g:sourceDir.'/bin/debug/maxwell'.l:nsd.'D'
 
     " Clean up outfiles
     call system("rm ".l:runpath."/outFileLog*")
@@ -455,6 +456,8 @@ function! FRTErrorList(...)
         else
             exec "resize ".l:FRT_numberOfLinesOutput
             execute "normal! gg/\\.f90\<cr>dd"
+            unmap <buffer> <cr>
+            unmap <buffer> v
             map <buffer> <cr> :call FRTOpenFile()<cr>
             map <buffer> v :call FRTOpenFileInVertSplit()<cr>
         endif
@@ -493,7 +496,7 @@ function! FRTGetFileDetail()
     let s:FRT_fileLineNo=@k
 
     " Find file
-    let s:FRT_filePath = split(system('find '.g:FRT_SourceDir.' -name '.l:FRT_fileName),'\v\n')[0]
+    let s:FRT_filePath = split(system('find '.g:sourceDir.' -name '.l:FRT_fileName),'\v\n')[0]
 endfunction
 
 function! FRTOpenDataInpFile()
@@ -542,7 +545,522 @@ function! FRTOpenFileInVertSplit()
     execute 'normal! '.s:FRT_fileLineNo.'G'
 endfunction
 
-nnoremap <buffer> <localleader>d :call FRTErrorList()<cr>
-
 " Shortcuts specific to Maxwell-nefem
 map <localleader>dgmt :vsplit ./source/DGMaxwellTypes.f90<cr>
+
+function! GotoCol(colnum)
+    execute "normal! ".a:colnum."|"
+endfunction
+
+function! FortranAllocateRestructureLoop()
+    call FortranAllocateRestructureNextFile()
+    call FortranAllocateRestructure()
+    write
+endfunction
+
+function! FortranAllocateRestructureNextFile()
+    " find and open next allocate statement
+    let sysout = split(system('ack --fortran ''^\s*allocate\('' | awk -F: ''{print $1 "\n" $2;exit}'''),'\v\n')
+    let filename = sysout[0]
+    let linenum = sysout[1]
+
+    " edit filename
+    execute "normal! :edit ".filename."\<cr>"
+    " position cursor
+    call cursor(linenum,1)
+    " set word wrapping off
+    setlocal textwidth=0
+endfunction
+
+function! FortranAllocateRestructure()
+    " goto start of word
+    normal! 0eb
+    " Get subroutine info (exit if not in a subroutine)
+    let s = FortranSubroutineInfo()
+    if(s.startLine==0)
+        echom 'NO SUBROUTINE'
+        return 2
+    endif
+    " Get allocatable function string
+    let cursorStart = col('.')
+    let a = FortranFuncInfo()
+    call GotoCol(a.arg_cols[0])
+    let a = FortranFuncInfo()
+    let nArgs = len(a.args)
+    let t = FortranGetType()
+    if t.type=~'double.*precision.*allocatable'
+        let funcName = 'allocDbl'.nArgs.'D'
+    elseif t.type=~'double.*precision.*pointer'
+        let funcName = 'allocDblPointer'.nArgs.'D'
+    elseif t.type=~'integer'
+        let funcName = 'allocInt'.nArgs.'D'
+    elseif t.type=~'logical'
+        let funcName = 'allocLogical'.nArgs.'D'
+    else
+        echom 'ERRROR type '.t.type.' not known'
+        return 1
+    endif
+    let funcArgs = [ a.name ] + a.args + [ "'".a.name."'" ] + [ "'".s.name."'" ]
+    let args = "call ".funcName."(".join(funcArgs,',').")"
+    call GotoCol(cursorStart)
+
+    " Change allocatable string
+    execute "normal! C".args
+
+    " Go down one line
+    normal! j
+    " Remove all spaces
+    " check if line starts with if(allocateStatus str
+    normal! "kyy
+    if(@k=~'if\s*(\s*allocateStatus')
+        normal! dd
+    endif
+    return 0
+endfunction
+
+" Goto a line number
+function! GotoLine(linenum)
+    execute "normal! ".a:linenum."G"
+endfunction
+
+" Get the type of a variable (in the .type variable of structure)
+function! FortranGetType()
+    let l:winview = winsaveview()
+    let currLine = line('.')
+
+    " Get var name (word under cursor)
+    normal! "kyiw
+    let l:varName = @k
+
+    " Search for declaration (between subrotine start and here)
+    let l:s = FortranSubroutineInfo()
+    call GotoLine(l:s.startLine)
+    let declarationPosn = search('.*::.*\<'.l:varName.'\>','',currLine)
+    normal! 0"kyt:
+
+    let type = {}
+    let type.topLevelType = @k
+    let type.name = l:varName
+    
+    " If this is a declared variable look that variable up
+    if type.topLevelType=~'^\s*type'
+        let type.topLevelType = substitute(type.topLevelType,'^\s*type\s*(\s*','','')
+        let type.topLevelType = substitute(type.topLevelType,').*','','')
+
+
+        call winrestview(l:winview)
+
+        let decomposedVariableName = FortranGetDecomposedVariableName()
+        let decomposedVariableName[0] = type.topLevelType
+    return decomposedVariableName
+
+        let type.type = FortranLookupDerivedType(decomposedVariableName)
+    else
+        let type.type = type.topLevelType
+    endif
+
+    call winrestview(l:winview)
+    return type
+endfunction
+
+function! PPList(myList)
+    echom '[ '.join(a:myList,', ').' ]'
+endfunction
+
+function! PPStructVal(myStruct,val)
+    echom '.'.a:val.' = '.a:myStruct[a:val]
+endfunction
+
+" Gets a list of derived types at the cursor e.g. mesh%parallelSolver(10)%nOfElement(1,35) -> [mesh, parallelSolver, nOfElements ]
+" at the moment only works when the variable ends in ) or =... i.e. mesh%parallelSolver%nOfElements WONT work - but that is ok for finding allocatable variables
+function! FortranGetDecomposedVariableName()
+    let typeNames = []
+    normal! mb
+    while 1
+        normal! ma
+        " get current cursor posn
+        let currPosn = col('.')
+
+        " get cursor posn first %
+        normal! `a
+        normal! f%
+        let percentPosn = col('.')
+
+        " get cursor posn first (
+        normal! `a
+        normal! f(
+        let bracketPosn = col('.')
+
+        " get cursor posn first =
+        normal! `a
+        normal! f=
+        let equalPosn = col('.')
+
+        " get cursor posn first ,
+        normal! `a
+        normal! f,
+        let commaPosn = col('.')
+
+        " if there is next bracket set to a very high number
+        if(bracketPosn==currPosn)
+            let bracketPosn = 999
+        endif
+
+        if(percentPosn==currPosn)
+            let percentPosn = 999
+        endif
+        
+        " no more brackets or percentages - yank current word and return
+        if(min([percentPosn,bracketPosn])==999)
+            normal! `a
+            normal! "kyw
+            call add(typeNames, @k)
+            break
+        endif
+        
+        " if there is an = before the next % of ( - then end of variable, return
+        if(equalPosn<min([ bracketPosn, percentPosn ]))
+            normal! "kyt=
+            call add(typeNames, @k)
+            break
+        endif
+
+        " if there is a comma before the next % of ( - then end of variable, return
+        if(commaPosn<min([ bracketPosn,percentPosn ]))
+            normal! "kyt,
+            " move to character after ,
+            call add(typeNames, @k)
+            break
+        endif
+
+        " move back to start
+        normal! `a
+
+        if(bracketPosn>percentPosn)
+            " if bracket is BEFORE percent - yank until bracket
+            normal! "kyt%
+            " move to character after %
+            normal! f%l
+            call add(typeNames, @k)
+        else
+            " yank until (
+            normal! "kyt(
+            " move to character after bracket
+            normal! f(%
+            call add(typeNames, @k)
+
+            " Check if there is a % after then )
+            " if not, then this is the end of the variable - so return
+            normal! l"kyl
+            if(@k!='%')
+                break
+            endif
+        endif
+
+    endwhile
+    normal! `b
+
+    if(len(typeNames)==0)
+        normal! "kyw
+        let typeNames = [ @k ]
+    endif
+
+    return typeNames
+endfunction
+
+function! FortranLookupDerivedType(typeNames)
+        let @k=''
+        let l:newFileOpen = 0
+        let l:winview = winsaveview()
+
+        let typeType = substitute(a:typeNames[0],'\(type\s*(\|)\)','','g')
+
+        " Look for type in this file
+        let endType = search('^\s*end\s*type\s*'.typeType,'b')
+        let startType = search('^\s*type\s*'.typeType,'b')
+
+        " if no type in this file - look in DGMaxwellTypes file
+        if(endType==0)
+            vsplit ~/Source/maxwell-nefem/source/DGMaxwellTypes.f90
+            let startType = 1
+            let endType = line('$')
+            let l:newFileOpen = 1
+        endif
+
+        let parentType=typeType
+
+        for typeName in a:typeNames[1:]
+            " place cursor at start
+            call cursor(1,1)
+            " find parent type bounds
+            let startTypeParent = search('^\s*type\s*'.parentType)
+            let endTypeParent = search('^\s*end\s*type\s*'.parentType)
+            " place cursor inside parent type
+            call cursor(startTypeParent+1,1)
+            " search for child type in parent
+            call search('^\s*.*::\s*'.typeName,'',endTypeParent)
+            " get parent type name
+            normal! ^"kyt:
+            " remove all but type
+            let parentType = @k
+            if(parentType=~'^\s*type')
+                let parentType = substitute(@k,'\(type\s*(\|).*\)','','g')
+            else
+                " If not a derived type, just break
+                break
+            endif
+        endfor
+
+        write
+        if(l:newFileOpen == 1)
+            quit
+        endif
+
+        call winrestview(l:winview)
+
+        return parentType
+
+endfunction
+
+function! FortranSubroutineInfo()
+    normal! mk
+    let subInfo = {}
+    let subInfo.startLine = search('^\s*subroutine','b')
+    " go to start of 'subroutine word'
+    normal! eb
+    " yank word after subroutine until (
+    normal! w"kyt(
+    let subInfo.name = @k
+    let subInfo.endLine = search('^\s*end\s*subroutine','')
+
+    " If no subroutine around this...
+    if(line('.') > subInfo.startLine && line('.') < subInfo.endLine)
+        " Look for a function
+        normal! `k
+        let subInfo = {}
+        let subInfo.startLine = search('^\s*function','b')
+        normal! w"kyt(
+        let subInfo.name = @k
+        let subInfo.endLine = search('^\s*end\s*function','')
+
+        " still no subroutine
+        if(line('.') > subInfo.startLine && line('.') < subInfo.endLine)
+            let subInfo.endLine = 0
+            let subInfo.startLine = 0
+            let subInfo.name = ''
+        endif
+    endif
+
+    normal! `k
+
+    return subInfo
+
+endfunction
+
+function! YankLineIntoTmpSplit()
+    " put the contents in a new buffer
+    let colNum = virtcol('.')
+    normal! 0y$
+    split __YankScratch__
+    setlocal buftype=nofile
+    normal! p0
+    call GotoCol(colnum)
+    return colNum
+endfunction
+
+" Cursor MUST be on first word, if its a structure
+function! FortranFuncInfo()
+    let l:func = {}
+
+    let startCursor = col('.')
+    normal! wb
+
+    " Mark Start
+    normal! ms
+
+    while 1
+        " move to next parenthesis
+        normal! f(
+
+        let startBracket = col('.')
+        " Check that character after matching parenthesis isn't a %
+        " ...jump to end parenthesis
+        normal! %
+        " ...store cursor posn, in case this is function end
+        let endBracket = col('.')
+        " ...check character to the right in case its a structure (unless its the end of a line)
+        normal! l
+        let @k=''
+        normal! "kyl
+
+        " if not another structure part (i.e. no %) AND not end of line
+        " move back and record end position
+        if( col('.') == (col('$') - 1) || @k!='%' )
+            " if I'm at the end of the line the 'normal! l' above won't have made a difference...
+            " so don't move back
+            if(col('.')!=col('$')-1)
+                normal h
+            endif
+
+            normal %
+            " ... exit loop if this is the function, otherwise keep looping
+            break
+        endif
+    endwhile
+    
+    " Mark Start
+    normal! me
+
+    let @k = ''
+    normal! `s"ky`e
+    let l:func.name = @k
+
+    " Check if this is a structure index
+    normal! l
+    normal! "kyl
+    if(@k=='%')
+        echom 'this is a struct'
+        return
+    endif
+
+    let l:func.args = []
+    let l:func.arg_cols = []
+
+    call GotoCol(startBracket)
+
+    let moreArgs = 1
+    normal! w
+    while(moreArgs)
+        normal! mk
+        call add(l:func.arg_cols, col('.'))
+        let moreArgs = FortranGotoNextCommaOnThisLevel(endBracket)
+        "mark this place
+        if(moreArgs)
+            " move back one to avoid the comma
+            normal! h
+        endif
+        " yank back to marker k into register k
+        normal! v`k"ky
+        let str = @k
+        " trim leading/trailing spaces
+        let str = substitute(str, '^\s*\(.\{-}\)\s*$', '\1', '')
+        " add yanked argument to args array
+        call add(l:func.args,str)
+        " goto end of visual selection
+        normal! `>
+        " If there are more arguments skip the comma
+        if(moreArgs)
+            " skip to character after comma
+            normal! ll
+        endif
+    endwhile
+
+    call GotoCol(startCursor)
+
+    normal! `s
+
+    return l:func
+
+endfunction
+
+" Function that goes to the next end of argument (i.e. comma) - ignoring commas inside nested parenthesis. If no next comma is found the function goes to the end of the line. Returns true there are more arg after this one, false otherwise
+function! FortranGotoNextCommaOnThisLevel(maxCol)
+    while(1)
+        " get character under cursor
+        normal! "kyl
+
+        if(col('.')>a:maxCol-2)
+            return 0
+        elseif(@k=='(')
+            normal! %
+        elseif(@k==',')
+            return 1
+        else
+            normal! l
+        endif
+    endwhile
+endfunction
+
+
+function! DATFileRemapIndices()
+    normal! ma
+    normal! 0
+    normal! w"kyiw
+    let elemNum=@k
+    let nodes=[]
+    for x in [ 1, 2 ]
+        normal! w"kyiw
+        call add(nodes,@k)
+    endfor
+    let elemLine = search('^'.elemNum.' ','b')
+
+    " skip over element and material
+    let localNodes = [ -1, -1 ]
+    for jNode in [ 0, 1 ]
+        normal! 0ww
+        for iNode in [ 1, 2, 3]
+            " get word under cursor
+            normal! "kyiw
+            let currWord = @k
+            if(currWord==nodes[jNode])
+                let localNodes[jNode] = iNode
+            endif
+            normal! w
+        endfor
+    endfor
+    echom '['.join(nodes,', ').'] -> ['.join(localNodes,', ').']'
+
+    normal! `a0ww
+    " replace node number
+    for jNode in [ 0, 1 ]
+        execute 'normal! cw'.localNodes[jNode]."\<esc>"
+        normal! w
+    endfor
+
+    normal! j
+
+endfunction
+
+function! RefactorStiff()
+    normal! 0w"kyt:
+    let type = @k
+    normal! $"kyF(
+    let dimension = @k
+    normal! $be"kyl
+    let lastCharacter = @k
+    let str = 'call print'
+    if(type=~'double precision')
+        let str = str.'Dbl'
+    elseif(type=~'integer')
+        let str = str.'Int'
+    elseif(type=~'logical')
+        let str = str.'Logical'
+    elseif(type=~'double complex')
+        let str = str.'DblComplex'
+    elseif(type=~'character')
+        let str = str.'Character'
+    else
+        echom 'ERROR - no type for '.type
+        return
+    endif
+
+    let nsd = len(split(dimension,','))
+    if(lastCharacter==')')
+        let str = str.nsd.'D'
+        normal! F(d$
+    endif
+    echom 'lastChar='.lastCharacter
+
+    if(type=~'allocatable')
+        let str = str.'Alloc'
+    elseif(type=~'pointer')
+        let str = str.'Pointer'
+    endif
+
+    normal! 02f:ll"ky$
+    let variableName = g:varPrefix.@k
+    let str=str.'(outFileDebug,'.variableName.','''.variableName.''')'
+
+    normal! 0C
+    execute 'normal! i'.str."\<esc>"
+endfunction
