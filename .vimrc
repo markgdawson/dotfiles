@@ -4,12 +4,17 @@ imap <C-space> <Plug>IMAP_JumpForward
 """""""""""""""""""""""""""""""""""""""""""""
 ""             Vundle
 """"""""""""""""""""""""""""""""""""""""""""""
+if has('nvim')
+    let g:editor_root=expand("~/.config/nvim")
+else
+    let g:editor_root=expand("~/.vim")
+endif
 
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
+let &rtp= &rtp . ',' . g:editor_root . '/bundle/Vundle.vim/'
 call vundle#begin()
 
 " let Vundle manage Vundle, required
@@ -99,7 +104,9 @@ set formatoptions=qrn1
 
 "set relativenumber
 set number
-set encoding=utf-8
+if(!has('nvim'))
+    set encoding=utf-8
+endif
 set showmode
 set showcmd
 set hidden
