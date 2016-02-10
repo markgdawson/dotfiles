@@ -395,7 +395,7 @@ function! FRTErrorList(...)
     "'find ./ -name data.inp | xargs sed -n \'/inputData%nsd/s/.*=\s*//p\'
     let l:sysCmd = 'find '.l:runpath.' -name data.inp | xargs sed -n ''/inputData%nsd/s/.*=\s*//p'''
     let l:nsd = system(l:sysCmd)
-    let l:nsd = split(l:nsd,'\v\n')[0]
+    let l:nsd = substitute(split(l:nsd,'\v\n')[0],'\s*','','g')
     let l:FRT_BinPath = g:sourceDir.'/bin/debug/maxwell'.l:nsd.'D'
 
     " Clean up outfiles
