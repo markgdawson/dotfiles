@@ -116,5 +116,7 @@ alias gap='git add -p'
 export PATH=/opt/local/bin:/usr/local/bin:/opt/local/sbin:/usr/local/sbin:~/bin:$PATH
 
 if [[ $OSTYPE == 'darwin14'* ]] then
-    export PATH=/usr/local/texlive/2015/bin/universal-darwin:$PATH
+    export PATH=/usr/local/texlive/2015/bin/universal-darwin:/opt/local/libexec/gnubin/:$PATH
+    alias emacs='/Applications/Emacs.app/Contents/MacOS/bin/emacsclient  -c'
+    alias emacsdaemon='/Applications/Emacs.app/Contents/MacOS/Emacs  --daemon'
 fi
