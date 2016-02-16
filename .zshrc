@@ -115,8 +115,12 @@ alias gap='git add -p'
 #Macports, Ruby and miscellaneous scripts
 export PATH=/opt/local/bin:/usr/local/bin:/opt/local/sbin:/usr/local/sbin:~/bin:$PATH
 
-if [[ $OSTYPE == 'darwin14'* ]] then
+if [[ $OSTYPE == 'darwin'* ]] then
     export PATH=/usr/local/texlive/2015/bin/universal-darwin:/opt/local/libexec/gnubin/:$PATH
     alias emacs='/Applications/Emacs.app/Contents/MacOS/bin/emacsclient  -c'
     alias emacsdaemon='/Applications/Emacs.app/Contents/MacOS/Emacs  --daemon'
+else
+    . /opt/intel/compilers_and_libraries_2016/linux/bin/compilervars.sh intel64
 fi
+
+export PATH="$HOME/Source/maxwell-nefem/scripts:$HOME/Source/maxwell-nefem/bin/debug:$PATH"
