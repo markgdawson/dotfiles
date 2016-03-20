@@ -120,7 +120,8 @@ if [[ $OSTYPE == 'darwin'* ]] then
     alias emacs='/Applications/Emacs.app/Contents/MacOS/bin/emacsclient  -c'
     alias emacsdaemon='/Applications/Emacs.app/Contents/MacOS/Emacs  --daemon'
 else
-    . /opt/intel/compilers_and_libraries_2016/linux/bin/compilervars.sh intel64
+    . /opt/intel/composer_xe_2013_sp1/bin/compilervars.sh intel64
+    PATH="/opt/intel/composer_xe_2013_sp1.2.144/bin/intel64:${PATH}"
 fi
 
 export PATH="$HOME/Source/maxwell-nefem/scripts:$HOME/Source/maxwell-nefem/bin/debug:$PATH"
