@@ -239,7 +239,6 @@ augroup sourceVIM
 augroup call allocInt1D(new, stat=allocateStatus,,,'new, stat=allocateStatus','subroutine uniqueInteger')
 
 inoremap jk <esc>
-inoremap <esc> <nop>
 
 " Latex specific shortcuts
 imap <c-space> <Plug>Tex_Completion
