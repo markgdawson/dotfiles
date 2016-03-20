@@ -51,7 +51,7 @@ ENABLE_CORRECTION="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
-if [[ $OSTYPE == darwin14.0 ]] then
+if [[ $OSTYPE == 'darwin'* ]] then
     plugins=(plugins osx macports)
 fi
 
