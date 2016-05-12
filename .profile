@@ -16,11 +16,6 @@ if [ -n "$BASH_VERSION" ]; then
     fi
 fi
 
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
-fi
-
 export PATH=~/Source/maxwell-nefem/scripts:~/Source/maxwell-nefem/bin/debug:$PATH
 
 # MPI setup
@@ -33,3 +28,9 @@ export MAXWELL_RESULTS=~/Data
 alias pdfopen='gnome-open'
 export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
 export PATH=$PATH:/usr/lib/jvm/java-7-openjdk-amd64/bin
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+
