@@ -119,6 +119,7 @@ if [[ $OSTYPE == 'darwin'* ]] then
 else
     . /opt/intel/composer_xe_2013_sp1/bin/compilervars.sh intel64
     PATH="/opt/intel/composer_xe_2013_sp1.2.144/bin/intel64:${PATH}"
+    alias open='xdg-open'
 fi
 
 export PATH="$HOME/Source/maxwell-nefem/scripts:$HOME/Source/maxwell-nefem/bin/debug:$PATH"
@@ -142,6 +143,3 @@ then
     PS1="> "
 fi
 
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
