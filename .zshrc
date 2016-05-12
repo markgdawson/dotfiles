@@ -107,10 +107,9 @@ zle -N zle-line-init
 zle -N zle-keymap-select
 export KEYTIMEOUT=10
 
-export GREP_OPTIONS='--color=auto'
-
 alias rl='readlink -f'
 alias gap='git add -p'
+alias grep='grep --color=auto'
 #Macports, Ruby and miscellaneous scripts
 export PATH=/opt/local/bin:/usr/local/bin:/opt/local/sbin:/usr/local/sbin:~/bin:$PATH
 
