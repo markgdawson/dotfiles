@@ -217,12 +217,12 @@ set guifont=DejaVu\ Sans\ Mono\ 14
 filetype indent on
 let g:tex_flavor='latex'
 
-let c='a'
-while c <= 'z'
-    exec "set <A-".c.">=\e".c
-    exec "imap \e".c." <A-".c.">"
-    let c = nr2char(1+char2nr(c))
-endw
+" let c='a'
+" while c <= 'z'
+"     exec "set <A-".c.">=\e".c
+"     exec "imap \e".c." <A-".c.">"
+"     let c = nr2char(1+char2nr(c))
+" endw
 
 set timeout ttimeoutlen=50
 noremap eq C\begin{equation}o\label{eq:}€klml/$$0C\end{equation}'l`l
@@ -394,7 +394,7 @@ function! FRTErrorList(...)
     "'find ./ -name data.inp | xargs sed -n \'/inputData%nsd/s/.*=\s*//p\'
     let l:sysCmd = 'find '.l:runpath.' -name data.inp | xargs sed -n ''/inputData%nsd/s/.*=\s*//p'''
     let l:nsd = system(l:sysCmd)
-    let l:nsd = substitute(split(l:nsd,'\v\n')[0],'\s*','','g')
+    let l:nsd = split(l:nsd,'\v\n')[0]
     let l:FRT_BinPath = g:sourceDir.'/bin/debug/maxwell'.l:nsd.'D'
 
     " Clean up outfiles
