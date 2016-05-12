@@ -110,16 +110,13 @@ export KEYTIMEOUT=10
 export GREP_OPTIONS='--color=auto'
 
 alias rl='readlink -f'
-alias gs='git status'
 alias gap='git add -p'
 #Macports, Ruby and miscellaneous scripts
 export PATH=/opt/local/bin:/usr/local/bin:/opt/local/sbin:/usr/local/sbin:~/bin:$PATH
 
 if [[ $OSTYPE == 'darwin'* ]] then
     export PATH=/usr/local/texlive/2015/bin/universal-darwin:/opt/local/libexec/gnubin/:$PATH
-    alias emacs='/Applications/Emacs.app/Contents/MacOS/bin/emacsclient  -c'
-    alias emacsdaemon='/Applications/Emacs.app/Contents/MacOS/Emacs  --daemon'
-      . /opt/intel/composerxe/bin/compilervars.sh intel64  
+    . /opt/intel/composerxe/bin/compilervars.sh intel64  
 else
     . /opt/intel/composer_xe_2013_sp1/bin/compilervars.sh intel64
     PATH="/opt/intel/composer_xe_2013_sp1.2.144/bin/intel64:${PATH}"
