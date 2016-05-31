@@ -143,3 +143,7 @@ then
     PS1="> "
 fi
 
+# for runtests
+export TESSTBINDIR="${HOME}/Source/maxwell-nefem/bin/debug"
+export BENCHBINDIR="${HOME}/Source/rubens-modified-code/maxwell-nefem/bin/debug"
+
