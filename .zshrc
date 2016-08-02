@@ -151,3 +151,5 @@ if [[ "$TERM" != "screen" ]]
 then
     tmux new-session -A -s main
 fi
+
+alias ec='emacsclient -n'
