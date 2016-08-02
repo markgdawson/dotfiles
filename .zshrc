@@ -147,3 +147,7 @@ fi
 export TESSTBINDIR="${HOME}/Source/maxwell-nefem/bin/debug"
 export BENCHBINDIR="${HOME}/Source/rubens-modified-code/maxwell-nefem/bin/debug"
 
+if [[ "$TERM" != "screen" ]]
+then
+    tmux new-session -A -s main
+fi
