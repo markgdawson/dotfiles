@@ -1,6 +1,7 @@
-# Path to your oh-my-zsh installation.
+## Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 export DEFAULT_USER=$(whoami)
+. ~/.zshenv
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -57,9 +58,6 @@ fi
 
 # User configuration
 
-export PATH="/usr/local/lib/bin/:$HOME/Source/maxwell-nefem/scripts:$HOME/Source/maxwell-nefem/bin/debug:/opt/intel/compilers_and_libraries_2016.0.109/linux/bin/intel64:/opt/intel/compilers_and_libraries_2016.0.109/linux/mpi/intel64/bin:/opt/intel/debugger_2016/gdb/intel64_mic/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/lib/jvm/java-7-openjdk-amd64/bin"
-# export MANPATH="/usr/local/man:$MANPATH"
-
 source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
@@ -110,20 +108,6 @@ export KEYTIMEOUT=10
 alias rl='readlink -f'
 alias gap='git add -p'
 alias grep='grep --color=auto'
-#Macports, Ruby and miscellaneous scripts
-export PATH=/opt/local/bin:/usr/local/bin:/opt/local/sbin:/usr/local/sbin:~/bin:$PATH
-
-if [[ $OSTYPE == 'darwin'* ]] then
-    export PATH=/usr/local/texlive/2015/bin/universal-darwin:/opt/local/libexec/gnubin/:$PATH
-    . /opt/intel/composerxe/bin/compilervars.sh intel64  
-else
-    . /opt/intel/composer_xe_2013_sp1/bin/compilervars.sh intel64
-    PATH="/opt/intel/composer_xe_2013_sp1.2.144/bin/intel64:${PATH}"
-    alias open='xdg-open'
-fi
-
-export PATH="$HOME/Source/maxwell-nefem/scripts:$HOME/Source/maxwell-nefem/bin/debug:$PATH"
-
 
 # output colors
 export RCol='\e[0m'    # Text Reset
@@ -152,4 +136,16 @@ then
     tmux new-session -A -s main
 fi
 
-alias ec='emacsclient -n'
+export EDITOR='~/bin/ec'
+
+function vpn-disconnect {
+    /usr/bin/env osascript <<-EOF
+tell application "System Events"
+        tell current location of network preferences
+                set VPN to service "SwanseaUni-VPN" -- your VPN name here
+                if exists VPN then disconnect VPN
+        end tell
+end tell
+return
+EOF
+}
