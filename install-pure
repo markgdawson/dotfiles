@@ -1,4 +1,4 @@
-mkdir /home/mark/.oh-my-zsh/custom/themes
+mkdir ${HOME}/.oh-my-zsh/custom/themes
 ln -s ${HOME}/pure/pure.zsh ~/.oh-my-zsh/custom/themes/pure.zsh-theme
-mkdir ~/.oh-my-zsh/functions/
+mkdir ${HOME}/.oh-my-zsh/functions/
 ln -s $HOME/.dotfiles/pure/async.zsh ~/.oh-my-zsh/functions/async
