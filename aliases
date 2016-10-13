@@ -1,0 +1,24 @@
+alias r='qsubmitall'
+alias rr='maxwell_clean;./qsubmit'
+alias qs='qstat_dirs'
+alias qsh='qstat $(<qid)'
+alias er='less err'
+alias cl='maxwell_clean'
+alias o='cat outFileLog.1'
+
+# git
+alias gl='git log'
+alias gls='git log -- source'
+alias gco='git checkout'
+alias s='git status'
+alias p='git pull --rebase'
+alias a='git add -p'
+
+# make
+alias m='make'
+alias l='ls'
+
+# other
+function es {
+  vi $(which $1 )
+}
