@@ -16,6 +16,13 @@ alias a='git add -p'
 alias c='git commit -m'
 alias ca='git commit --amend'
 
+# dotfiles
+alias gpd='( cd ~/.dotfiles/;git add *;git commit -m autopush;git push)'
+alias gfd='( cd ~/.dotfiles/;git pull rebase)'
+
+# files
+alias rf='rm -rf'
+
 # make
 alias m='make'
 alias l='ls'
