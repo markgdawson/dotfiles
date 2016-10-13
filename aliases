@@ -13,6 +13,8 @@ alias gco='git checkout'
 alias s='git status'
 alias p='git pull --rebase'
 alias a='git add -p'
+alias c='git commit -m'
+alias ca='git commit --amend'
 
 # make
 alias m='make'
