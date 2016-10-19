@@ -1,7 +1,9 @@
+#maxwell
 alias r='qsubmitall'
 alias rr='maxwell_clean;./qsubmit'
 alias qs='qstat_dirs'
 alias qsh='qstat $(<qid)'
+alias qdl="awk '{ print \$1 }' | xargs qdel"
 alias er='less err'
 alias cl='maxwell_clean'
 alias o='cat outFileLog.1'
@@ -20,8 +22,12 @@ alias ca='git commit --amend'
 alias gpd='( cd ~/.dotfiles/;git add *;git commit -m autopush;git push)'
 alias gfd='( cd ~/.dotfiles/;git pull rebase)'
 
+# dirs
+alias sm='cd ~/Source/maxwell-nefem'
+
 # files
 alias rf='rm -rf'
+alias kill1="awk '{ print \$1 }' | xargs kill"
 
 # make
 alias m='make'
