@@ -149,3 +149,7 @@ end tell
 return
 EOF
 }
+
+if [[ $(hostname) -eq mark-ixtreme-M5860 ]] then
+  export MATLAB_JAVA='/usr/lib/jvm/java-8-oracle/jre'
+fi
