@@ -23,3 +23,5 @@ if [[ $OSTYPE == 'darwin'* ]] then
    # required for non system matlab python engine
    export DYLD_LIBRARY_PATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib:$DYLD_LIBRARY_PATH
 fi
+
+export MATLAB_EXECUTABLE=/Applications/MATLAB_R2016a.app/bin/matlab
