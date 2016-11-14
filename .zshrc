@@ -153,3 +153,12 @@ EOF
 if [[ $(hostname) -eq mark-ixtreme-M5860 ]] then
   export MATLAB_JAVA='/usr/lib/jvm/java-8-oracle/jre'
 fi
+
+if [[ $OSTYPE == 'darwin'* ]] then
+    export PATH=/usr/local/texlive/2015/bin/universal-darwin:/opt/local/libexec/gnubin/:$PATH
+    . /opt/intel/composerxe/bin/compilervars.sh intel64  
+else
+    . /opt/intel/composer_xe_2013_sp1/bin/compilervars.sh intel64
+    PATH="/opt/intel/composer_xe_2013_sp1.2.144/bin/intel64:${PATH}"
+    alias open='xdg-open'
+fi
