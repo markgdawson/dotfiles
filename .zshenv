@@ -25,3 +25,4 @@ if [[ $OSTYPE == 'darwin'* ]] then
 fi
 
 export MATLAB_EXECUTABLE=/Applications/MATLAB_R2016a.app/bin/matlab
+export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dsun.java2d.xrender=true"
