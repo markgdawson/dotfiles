@@ -52,7 +52,8 @@ ENABLE_CORRECTION="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
-if [[ $OSTYPE == 'darwin'* ]] then
+if [[ "$OSTYPE" == 'darwin'* ]]
+then
     plugins=(plugins osx macports)
 fi
 
@@ -150,11 +151,13 @@ return
 EOF
 }
 
-if [[ "$(hostname)" == "mark-ixtreme-M5860" ]] then
+if [[ "$(hostname)" == "mark-ixtreme-M5860" ]]
+then
   export MATLAB_JAVA='/usr/lib/jvm/java-8-oracle/jre'
 fi
 
-if [[ $OSTYPE == 'darwin'* ]] then
+if [[ "$OSTYPE" == 'darwin'* ]]
+then
     export PATH=/usr/local/texlive/2015/bin/universal-darwin:/opt/local/libexec/gnubin/:$PATH
     INTELINITSCRIPT="/opt/intel/composerxe/bin/compilervars.sh intel64"
 else

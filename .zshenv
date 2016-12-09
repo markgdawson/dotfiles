@@ -4,7 +4,8 @@ export PATH="/usr/local/lib/bin/:$HOME/Source/maxwell-nefem/scripts:$HOME/Source
 
 export PATH=/opt/local/bin:/usr/local/bin:/opt/local/sbin:/usr/local/sbin:~/bin:$PATH
 
-if [[ $OSTYPE == 'darwin'* ]] then
+if [[ "$OSTYPE" == 'darwin'* ]]
+then
     export PATH=/usr/local/texlive/2015/bin/universal-darwin:/opt/local/libexec/gnubin/:$PATH
     . /opt/intel/composerxe/bin/compilervars.sh intel64  
 else
@@ -26,7 +27,8 @@ fi
 
 export PATH="$HOME/Source/maxwell-nefem/scripts:$HOME/Source/maxwell-nefem/bin/debug:$PATH"
 
-if [[ $OSTYPE == 'darwin'* ]] then
+if [[ "$OSTYPE" == 'darwin'* ]]
+then
    # required for non system matlab python engine
    export DYLD_LIBRARY_PATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib:$DYLD_LIBRARY_PATH
 fi
