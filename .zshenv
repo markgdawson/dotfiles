@@ -1,3 +1,4 @@
+export FPATH=/eng/cvcluster/egdawsonm/.local/share/zsh/5.2/functions/:$FPATH
 #Macports, Ruby and miscellaneous scripts
 export PATH="/usr/local/lib/bin/:$HOME/Source/maxwell-nefem/scripts:$HOME/Source/maxwell-nefem/python:$HOME/Source/maxwell-nefem/bin/debug:/opt/intel/compilers_and_libraries_2016.0.109/linux/bin/intel64:/opt/intel/compilers_and_libraries_2016.0.109/linux/mpi/intel64/bin:/opt/intel/debugger_2016/gdb/intel64_mic/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/lib/jvm/java-7-openjdk-amd64/bin:$PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
