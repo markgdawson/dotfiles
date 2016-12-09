@@ -8,12 +8,19 @@ if [[ $OSTYPE == 'darwin'* ]] then
     export PATH=/usr/local/texlive/2015/bin/universal-darwin:/opt/local/libexec/gnubin/:$PATH
     . /opt/intel/composerxe/bin/compilervars.sh intel64  
 else
-    INTELFILE='/opt/intel/composer_xe_2013_sp1/bin/compilervars.sh'
-    if [[ -f $INTEL_FILE ]]
+    INTEL_SCRIPT='/opt/intel/composer_xe_2013_sp1/bin/compilervars.sh'
+    if [[ -f $INTEL_SCRIPT ]]
     then
-        . $INTELFILE intel64
+        . $INTEL_SCRIPT intel64
+        PATH="/opt/intel/composer_xe_2013_sp1.2.144/bin/intel64:${PATH}"
     fi
-    PATH="/opt/intel/composer_xe_2013_sp1.2.144/bin/intel64:${PATH}"
+
+    INTEL_SCRIPT='/opt/intel/parallel_studio_xe_2017.1.043/compilers_and_libraries_2017/linux/bin/ifortvars.sh'
+    if [[ -f $INTEL_SCRIPT ]]
+    then
+        . $INTEL_SCRIPT intel64
+    fi
+
     alias open='xdg-open'
 fi
 
