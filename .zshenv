@@ -33,7 +33,9 @@ then
    export DYLD_LIBRARY_PATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib:$DYLD_LIBRARY_PATH
 fi
 
-export XPRA_NET_WM_NAME=Sawfish # for matlab with XPRA
-export MATLAB_JAVA='/usr/lib/jvm/java-8-openjdk-amd64/jre' # to work with XPRA
-export MATLAB_EXECUTABLE=/Applications/MATLAB_R2016a.app/bin/matlab
+#export XPRA_NET_WM_NAME=Sawfish # for matlab with XPRA
+#export MATLAB_JAVA='/usr/lib/jvm/java-8-openjdk-amd64/jre' # to work with XPRA
+#export MATLAB_EXECUTABLE=/Applications/MATLAB_R2016a.app/bin/matlab
+
+# matlab options for i3
 export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dsun.java2d.xrender=true"
