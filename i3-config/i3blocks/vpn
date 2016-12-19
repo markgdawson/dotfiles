@@ -1,0 +1,12 @@
+#!/bin/sh
+#nmcli c | awk '$4~/wls3/ {printf $1 " "}'
+if [ "$(nmcli c | grep SU-vpn | grep wls3 | wc -l)" -eq 1 ]
+then
+    echo "on"
+    #echo "on"
+    #echo "#00FF00"
+else
+    echo "off"
+    #echo "off"
+    #echo "#FF0000"
+fi

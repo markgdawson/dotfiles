@@ -1,0 +1,2 @@
+nmcli connection up a080ab19-7dc1-42a6-8a26-ef67ac62702a
+nmcli connection up 81a59f39-3dc4-4eda-ab1e-e94bfdbc2363 passwd-file ~/.vpn-passwd 
