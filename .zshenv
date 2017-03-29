@@ -10,14 +10,7 @@ then
     export PATH=/usr/local/texlive/2015/bin/universal-darwin:/opt/local/libexec/gnubin/:$PATH
     . /opt/intel/composerxe/bin/compilervars.sh intel64  
 else
-    INTEL_SCRIPT='/opt/intel/composer_xe_2013_sp1/bin/compilervars.sh'
-    if [[ -f $INTEL_SCRIPT ]]
-    then
-        . $INTEL_SCRIPT intel64
-        PATH="/opt/intel/composer_xe_2013_sp1.2.144/bin/intel64:${PATH}"
-    fi
-
-    INTEL_SCRIPT='/opt/intel/parallel_studio_xe_2017.1.043/compilers_and_libraries_2017/linux/bin/ifortvars.sh'
+    INTEL_SCRIPT='/opt/intel/compilers_and_libraries/linux/bin/compilervars.sh'
     if [[ -f $INTEL_SCRIPT ]]
     then
         . $INTEL_SCRIPT intel64
