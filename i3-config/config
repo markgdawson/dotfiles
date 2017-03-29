@@ -10,6 +10,7 @@ force_focus_wrapping yes
 
 # default workspace layout
 workspace_layout default
+default_orientation vertical
 
 # Assume you are on workspace "1: www" and switch to "2: IM" using mod+2 
 # because somebody sent you a message. You don’t need to remember 
@@ -37,7 +38,7 @@ focus_follows_mouse yes
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec terminator
+bindsym $mod+Return exec i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -342,9 +343,9 @@ bindsym $mod+Control+Tab     exec ~/config/.i3/i3-project-focus-workflow/cycleCo
 bindsym $mod+n               exec ~/config/.i3/i3-project-focus-workflow/renameProject.py
 
 # rofi bindings
-bindsym $mod+space exec zsh -c "rofi -show run -fg "#f1f1f1" -bg "#333333" -hlfg "#ffffff" -hlbg "#336699" -o 85"
-bindsym $mod+g exec zsh -c "rofi -show window -fg "#f1f1f1" -bg "#333333" -hlfg "#ffffff" -hlbg "#336699" -o 85"
-bindsym $mod+c exec zsh -c "rofi -show ssh -fg "#f1f1f1" -bg "#333333" -hlfg "#ffffff" -hlbg "#336699" -o 85"
+bindsym $mod+space exec zsh -c 'rofi -show run -fg "#f1f1f1" -bg "#333333" -hlfg "#ffffff" -hlbg "#336699" -o 85'
+bindsym $mod+g exec zsh -c 'rofi -show window -fg "#f1f1f1" -bg "#333333" -hlfg "#ffffff" -hlbg "#815ba4" -o 85'
+bindsym $mod+c exec zsh -c 'rofi -show "ssh" -fg "#f1f1f1" -bg "#333333" -hlfg "#000000" -hlbg "#FAC863" -o 85'
 
 popup_during_fullscreen leave_fullscreen
 show_marks yes
@@ -355,11 +356,12 @@ show_marks yes
 
 
 # start applications
-exec --no-startup-id google-chrome
+exec --no-startup-id nm-applet
 exec --no-startup-id dropbox start
 exec --no-startup-id xset m 3/1 3
 exec --no-startup-id ~/.config/i3/network_start
-exec --no-startup-id synergys --enable-crypto
+exec --no-startup-id synergyc --enable-crypto -n Macbook  137.44.3.128 
+exec --no-startup-id setxkbmap -layout gb mac 
 exec --no-startup-id xsetroot -solid "#333333"
 # horizontal scrolling
 exec --no-startup-id synclient VertScrollDelta=-113
