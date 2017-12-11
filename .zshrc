@@ -1,5 +1,6 @@
 ## Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
+export NO_AT_BRIDGE=1
 export DEFAULT_USER=$(whoami)
 . ~/.zshenv
 
