@@ -2,6 +2,7 @@
 export ZSH=$HOME/.oh-my-zsh
 export NO_AT_BRIDGE=1
 export DEFAULT_USER=$(whoami)
+export DISPLAY=${DISPLAY:-:0}
 . ~/.zshenv
 
 # Set name of the theme to load.
